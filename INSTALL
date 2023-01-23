@@ -2,12 +2,17 @@ Requiremets:
 - PHP 8.1 as command line
 - DOCKER
 - GIT
+- free PORT 3306 for mariadb
 
 Installation:
 git clone https://github.com/astrostudio/booking.git ./booking
 cd booking
 ./build.sh
 
+Application: http://localhost
+API Documentation: http://localhost/api/documentation
 POSTMAN commands in file "Booking.postman_collection.json"
 
+To stop environment: ./vendor/bin/sail stop
+To restart environment: ./vendor/bin/sail up -d
 
