@@ -1,0 +1,13 @@
+Requiremets:
+- PHP 8.1 as command line
+- DOCKER
+- GIT
+
+Installation:
+git clone https://github.com/astrostudio/booking.git ./booking
+cd booking
+./build.sh
+
+POSTMAN commands in file "Booking.postman_collection.json"
+
+
