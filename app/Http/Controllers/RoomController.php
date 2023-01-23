@@ -39,6 +39,15 @@ class RoomController extends Controller
      *      operationId="room-get",
      *      summary="Gets room",
      *      description="Returns specific room",
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Room ID",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
      *      @OA\Response(
      *          response=200,
      *          description="Successful operation",
@@ -59,6 +68,30 @@ class RoomController extends Controller
         return $room;
     }
 
+    /**
+     * @OA\Post(
+     *      path="/room",
+     *      operationId="room-post",
+     *      summary="Creates new room",
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(ref="#/components/schemas/Room")
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          ref="#/components/schemas/Room"
+     *       ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *     )
+     */
     public function post(Request $request)
     {
         $request->validate([
@@ -70,6 +103,35 @@ class RoomController extends Controller
         return response()->json($room,201);
     }
 
+    /**
+     * @OA\Put(
+     *      path="/room/{id}",
+     *      operationId="room-put",
+     *      summary="Updates room data",
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Room ID",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          ref="#/components/schemas/Room"
+     *       ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *     )
+     */
     public function put(Request $request, Room $room)
     {
         $room->update($request->all());
@@ -77,6 +139,35 @@ class RoomController extends Controller
         return response()->json($room,200);
     }
 
+    /**
+     * @OA\Delete(
+     *      path="/room/{id}",
+     *      operationId="room-delete",
+     *      summary="Deletes existing room",
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Room ID",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          ref="#/components/schemas/Room"
+     *       ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *     )
+     */
     public function delete(Request $request, Room $room)
     {
         $room->delete();

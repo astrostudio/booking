@@ -5,6 +5,206 @@
         "version": "0.1"
     },
     "paths": {
+        "/reservation": {
+            "get": {
+                "summary": "Get list of reserved rooms",
+                "operationId": "reservation-index",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Try and make reservation",
+                "operationId": "reservation-post",
+                "parameters": [
+                    {
+                        "name": "start",
+                        "in": "query",
+                        "description": "Start date",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "date"
+                        }
+                    },
+                    {
+                        "name": "stop",
+                        "in": "query",
+                        "description": "Stop date",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "date"
+                        }
+                    },
+                    {
+                        "name": "days",
+                        "in": "query",
+                        "description": "Number of days",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": "1"
+                        }
+                    },
+                    {
+                        "name": "beds",
+                        "in": "query",
+                        "description": "Number of beds",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name of person who reserve",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "contact",
+                        "in": "query",
+                        "description": "Contact information",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/schemas/Room"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/reservation/vacant": {
+            "get": {
+                "summary": "Checks if reservation is possible",
+                "operationId": "reservation-vacant",
+                "parameters": [
+                    {
+                        "name": "start",
+                        "in": "query",
+                        "description": "Start date of reservation",
+                        "required": true,
+                        "schema": {
+                            "type": "date"
+                        }
+                    },
+                    {
+                        "name": "stop",
+                        "in": "query",
+                        "description": "Stop date of reservation",
+                        "required": false,
+                        "schema": {
+                            "type": "date"
+                        }
+                    },
+                    {
+                        "name": "days",
+                        "in": "query",
+                        "description": "Number of days",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "beds",
+                        "in": "query",
+                        "description": "Number of beds in room requested",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/reservation/{id}": {
+            "get": {
+                "summary": "Gets specific reservation",
+                "operationId": "reservation-get",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Room ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/schemas/Room"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete reservation",
+                "operationId": "reservation-delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Reservation ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/schemas/Room"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
         "/room": {
             "get": {
                 "summary": "Get list of rooms",
@@ -21,6 +221,31 @@
                         "description": "Forbidden"
                     }
                 }
+            },
+            "post": {
+                "summary": "Creates new room",
+                "operationId": "room-post",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Room"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/schemas/Room"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
             }
         },
         "/room/{id}": {
@@ -28,6 +253,69 @@
                 "summary": "Gets room",
                 "description": "Returns specific room",
                 "operationId": "room-get",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Room ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/schemas/Room"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Updates room data",
+                "operationId": "room-put",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Room ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/schemas/Room"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Deletes existing room",
+                "operationId": "room-delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Room ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "$ref": "#/components/schemas/Room"
@@ -44,36 +332,76 @@
     },
     "components": {
         "schemas": {
+            "Reservation": {
+                "title": "Reservation",
+                "description": "Reservation data",
+                "properties": {
+                    "id": {
+                        "description": "Reservation ID",
+                        "type": "integer",
+                        "readOnly": "true"
+                    },
+                    "name": {
+                        "description": "Name of person",
+                        "type": "string"
+                    },
+                    "contact": {
+                        "description": "Contact data",
+                        "type": "string"
+                    },
+                    "start": {
+                        "description": "Reservation start date",
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "stop": {
+                        "description": "Reservation stop date",
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "created_at": {
+                        "description": "Initial creation timestamp",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": "true"
+                    },
+                    "updated_at": {
+                        "description": "Last update timestamp",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": "true"
+                    }
+                },
+                "type": "object"
+            },
             "Room": {
                 "title": "Room",
                 "description": "Available room data",
                 "properties": {
                     "id": {
-                        "title": "id",
                         "description": "Room ID",
-                        "type": "integer"
+                        "type": "integer",
+                        "readOnly": "true"
                     },
                     "number": {
-                        "title": "number",
                         "description": "Room number",
                         "type": "integer"
                     },
-                    "size": {
-                        "title": "size",
+                    "beds": {
                         "description": "Number of beds in room",
                         "type": "integer"
                     },
                     "created_at": {
-                        "title": "created_at",
-                        "description": "Time of creation",
+                        "description": "Initial creation timestamp",
                         "type": "string",
-                        "format": "date-time"
+                        "format": "date-time",
+                        "readOnly": "true"
                     },
                     "updated_at": {
-                        "title": "updated_at",
-                        "description": "Time of modification",
+                        "description": "Last update timestamp",
                         "type": "string",
-                        "format": "date-time"
+                        "format": "date-time",
+                        "readOnly": "true"
                     }
                 },
                 "type": "object"

@@ -7,6 +7,55 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * @OA\Schema(
+ *     title="Reservation",
+ *     description="Reservation data",
+ *     type="object",
+ * )
+ * @OA\Property(
+ *     property="id",
+ *     type="integer",
+ *     description="Reservation ID",
+ *     readOnly="true"
+ * ),
+ * @OA\Property(
+ *     property="name",
+ *     type="string",
+ *     description="Name of person"
+ * ),
+ * @OA\Property(
+ *     property="contact",
+ *     type="string",
+ *     description="Contact data"
+ * ),
+ * @OA\Property(
+ *     property="start",
+ *     type="string",
+ *     format="date",
+ *     description="Reservation start date",
+ * ),
+ * @OA\Property(
+ *     property="stop",
+ *     type="string",
+ *     format="date",
+ *     description="Reservation stop date",
+ * ),
+ * @OA\Property(
+ *     property="created_at",
+ *     type="string",
+ *     format="date-time",
+ *     description="Initial creation timestamp",
+ *     readOnly="true"
+ * ),
+ * @OA\Property(
+ *     property="updated_at",
+ *     type="string",
+ *     format="date-time",
+ *     description="Last update timestamp",
+ *     readOnly="true"
+ * )
+ */
 class Reservation extends Model
 {
     use HasFactory;

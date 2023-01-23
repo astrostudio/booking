@@ -12,6 +12,36 @@ use Illuminate\Database\Eloquent\Model;
  *     description="Available room data",
  *     type="object",
  * )
+ * @OA\Property(
+ *     property="id",
+ *     type="integer",
+ *     description="Room ID",
+ *     readOnly="true"
+ * ),
+ * @OA\Property(
+ *     property="number",
+ *     type="integer",
+ *     description="Room number"
+ * ),
+ * @OA\Property(
+ *     property="beds",
+ *     type="integer",
+ *     description="Number of beds in room"
+ * ),
+ * @OA\Property(
+ *     property="created_at",
+ *     type="string",
+ *     format="date-time",
+ *     description="Initial creation timestamp",
+ *     readOnly="true"
+ * ),
+ * @OA\Property(
+ *     property="updated_at",
+ *     type="string",
+ *     format="date-time",
+ *     description="Last update timestamp",
+ *     readOnly="true"
+ * )
  */
 class Room extends Model
 {
