@@ -1,0 +1,233 @@
+{
+	"info": {
+		"_postman_id": "da5d0477-56f4-4d4d-8f18-401d6e7cea06",
+		"name": "Booking",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13109180"
+	},
+	"item": [
+		{
+			"name": "List of available rooms",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost/api/room",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"room"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get room info by ID",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost/api/room/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"room",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get current reservations",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost/api/reservation",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"reservation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check vacants with start date, number of days and person count",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "start",
+							"value": "2023-01-01",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "days",
+							"value": "3",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "persons",
+							"value": "2",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost/api/reservation/vacant?start=2022-01-03&days=3&beds=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"reservation",
+						"vacant"
+					],
+					"query": [
+						{
+							"key": "start",
+							"value": "2022-01-03"
+						},
+						{
+							"key": "days",
+							"value": "3"
+						},
+						{
+							"key": "beds",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Booking room for start date, day and bed count",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "start",
+							"value": "2023-01-20",
+							"type": "text"
+						},
+						{
+							"key": "days",
+							"value": "3",
+							"type": "text"
+						},
+						{
+							"key": "beds",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "Maciek",
+							"type": "text"
+						},
+						{
+							"key": "contact",
+							"value": "604542864",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost/api/reservation",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"reservation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete reservation with its ID",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost/api/reservation/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"reservation",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
