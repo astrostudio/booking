@@ -1,4 +1,5 @@
 php artisan migrate:install
 php artisan migrate
 php artisan db:seed --class=RoomTableSeeder
-php artisan
+
+php artisan l5-swagger:generate
